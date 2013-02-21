@@ -1,3 +1,3 @@
-this.Point =
-class Point
+this.Vector =
+class Vector
     constructor: (@x, @y) ->

@@ -1,14 +1,14 @@
 this.Pendulum = 
 class Pendulum
     constructor: (@length, @pivot, @radius = 5) ->
-        @angle = 0 #Math.PI / 3
+        @angle = Math.PI / 2
         @velocity = 0
         @mass = 0.1
         # acceleration due to gravity, pixels/step^2
         @g = 0.1
 
     position: ->
-        new Point(
+        new Vector(
             @pivot.x + (@length * Math.cos(@angle)),
             @pivot.y + (@length * Math.sin(@angle))
         )
