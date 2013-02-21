@@ -19,3 +19,10 @@ class Canvas
         con.moveTo(point1.x, point1.y)
         con.lineTo(point2.x, point2.y)
         con.stroke()
+
+    clear: (preserveTransform = false) ->
+        con = this._context()
+        con.save() if preserveTransform
+        con.setTransform(1, 0, 0, 1, 0, 0)
+        con.clearRect(0, 0, this.width(), this.height())
+        con.restore() if preserveTransform
