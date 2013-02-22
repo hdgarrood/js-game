@@ -1,21 +1,21 @@
 this.Pendulum = 
 class Pendulum
     constructor: (@length, @pivot, @radius = 5) ->
+        @body = new Body()
         @angle = Math.PI / 2
-        @velocity = 0
         @mass = 0.1
-        # acceleration due to gravity, pixels/step^2
-        @g = 0.1
+        @gravity = 0.1
+
+        # gravity
+        @body.exert ->
+            new Force(@mass * @gravity, Math.PI)
+
+        # tension
+        @body.exert ->
+            new CentripetalForce(@body, @pivot)
 
     position: ->
-        new Vector(
-            @pivot.x + (@length * Math.cos(@angle)),
-            @pivot.y + (@length * Math.sin(@angle))
-        )
-
-    # hit the pendulum rightwards with the given impulse pixelsteps
-    strike: (impulse) ->
-        console.log('Pendulum#strike: Not implemented')
+        @body.position()
 
     # draws the pendulum on the passed Canvas.
     draw: (canvas) ->
@@ -27,6 +27,4 @@ class Pendulum
         canvas.drawLine(pos, @pivot)
 
     step: ->
-        accel = @mass * @g * (Math.cos(@angle))
-        @velocity += accel
-        @angle += @velocity
+        @body.step()
