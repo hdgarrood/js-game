@@ -4,6 +4,6 @@ class Vector
 
     add: (other) ->
         new Vector(
-            this.x() + other.x(),
-            this.y() + other.y()
+            this.x + other.x,
+            this.y + other.y
         )
