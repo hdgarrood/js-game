@@ -1,7 +1,7 @@
 require "coffee-script"
-stitch      = require "stitch"
-express     = require "express"
-fs          = require "fs"
+stitch          = require "stitch"
+express         = require "express"
+fs              = require "fs-extra"
 
 app = stitch.createPackage(
     paths: [ "src" ]
@@ -22,12 +22,11 @@ task "server", "start a dev server", (options) ->
 task "static", "create a static site", (options) ->
     invoke 'clean'
 
-    # create output directory
     fs.mkdirSync 'static'
 
-    # copy files in 'public'
+    # copy files in 'public' to 'static'
     for file in fs.readdirSync 'public'
-        fs.writeFileSync("static/#{file}", fs.readFileSync("public/#{file}"))
+        fs.copy("public/#{file}", "static/#{file}")
 
     # compile JS
     app.compile (err, source) ->
@@ -35,5 +34,4 @@ task "static", "create a static site", (options) ->
         fs.writeFileSync('static/application.js', source)
 
 task "clean", "clean the static site", (options) ->
-    if fs.existsSync 'static'
-        fs.rmdirSync 'static'
+    fs.removeSync 'static'
