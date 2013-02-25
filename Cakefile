@@ -15,7 +15,7 @@ task "server", "start a dev server", (options) ->
     server.configure ->
         server.get "/application.js", app.createServer()
         server.use express.static(__dirname + '/public')
-    port = options.port or process.env.port or 9294
+    port = options.port or process.env.port or 3000
     console.log "starting server on http://0.0.0.0:#{port}"
     server.listen port
 
