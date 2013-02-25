@@ -1,7 +1,6 @@
-require "coffee-script"
-stitch          = require "stitch"
-express         = require "express"
-fs              = require "fs-extra"
+stitch  = require "stitch"
+express = require "express"
+fs      = require "fs-extra"
 
 app = stitch.createPackage(
     paths: [ "src" ]
