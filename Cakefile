@@ -19,7 +19,7 @@ task "server", "start a dev server", (options) ->
     console.log "starting server on http://0.0.0.0:#{port}"
     server.listen port
 
-task "static", "create a static site", (options) ->
+task "static", "create a static site", ->
     invoke 'clean'
 
     fs.mkdirSync 'static'
@@ -33,5 +33,5 @@ task "static", "create a static site", (options) ->
         throw err if err
         fs.writeFileSync('static/application.js', source)
 
-task "clean", "clean the static site", (options) ->
+task "clean", "clean the static site", ->
     fs.removeSync 'static'
