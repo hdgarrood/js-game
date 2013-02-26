@@ -1,9 +1,15 @@
 <!doctype html>
 <html>
     <head>
-        <script type=text/javascript src=game.js></script>
+        <script type=text/javascript src=/application.js></script>
         <script type=text/javascript>
-            window.onload = function() { window.game = new Game() }
+            window.onload = function() {
+                var Game = require('game').Game
+                window.game = new Game({
+                    canvas: document.getElementById('canvas')
+                })
+                window.game.start()
+            }
         </script>
     </head>
     <body>
