@@ -1,5 +1,3 @@
-window = this
-
 {World} = require 'world'
 
 exports.Game = class Game
