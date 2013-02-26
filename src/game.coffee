@@ -6,6 +6,4 @@ exports.Game = class Game
         @canvas = opts.canvas
 
     start: ->
-        mainLoop = ->
-            @world.step() 
-        setInterval(mainLoop, @world.stepTime)
+        setInterval(@world.step, @world.stepTime)
