@@ -33,4 +33,5 @@ task "static", "create a static site", ->
         fs.writeFileSync('static/application.js', source)
 
 task "clean", "clean the static site", ->
-    fs.removeSync 'static'
+    for file in fs.readdirSync 'static'
+        fs.removeSync "static/#{file}"
