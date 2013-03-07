@@ -10,27 +10,27 @@ exports.Game = class Game
 
         # create the ground and give it an edge
         bd_ground = new Box2D.b2BodyDef
-        # bd_ground.set_type(Box2D.b2_staticBody)
+        bd_ground.set_type(Box2D.b2_staticBody)
         ground = @world.CreateBody(bd_ground)
 
         ground_shape = new Box2D.b2EdgeShape
         ground_shape.Set(new Box2D.b2Vec2(0, 48), new Box2D.b2Vec2(64, 48))
         ground.CreateFixture(ground_shape, 0.0)
 
-        # create the player (for now, just a circle)
-        player_shape = new Box2D.b2CircleShape
-        player_shape.set_m_radius(2)
+        # create the player (for now, just a box)
+        player_shape = new Box2D.b2PolygonShape
+        player_shape.SetAsBox(1, 1)
 
         ZERO = new Box2D.b2Vec2(0, 0)
 
         bd_player = new Box2D.b2BodyDef
-        bd_player.set_type(Box2D.b2_dynamicShape)
+        bd_player.set_type(Box2D.b2_dynamicBody)
         bd_player.set_position(ZERO)
 
         # add the player to the world
         player = @world.CreateBody(bd_player)
         player.CreateFixture(player_shape, 5)
-        player.SetTransform(new Box2D.b2Vec2(32, 4), 0)
+        player.SetTransform(new Box2D.b2Vec2(25, 4), 0)
         player.SetLinearVelocity(ZERO)
         player.SetAwake(1)
         player.SetActive(1)
@@ -45,6 +45,7 @@ exports.Game = class Game
             @draw()
 
         @start = =>
+            setInterval(@step, @stepTime)
 
     stepTime: 1 / 60
     positionIterations: 8
@@ -57,6 +58,7 @@ exports.Game = class Game
 
     update: ->
         @world.Step(@stepTime, @velocityIterations, @positionIterations)
+        @world.ClearForces()
 
     draw: ->
         @canvas.clear()
@@ -67,5 +69,5 @@ exports.Game = class Game
         position = 
             x: b.GetPosition().get_x() * @pixelsPerMetre
             y: b.GetPosition().get_y() * @pixelsPerMetre
-        draw_radius = 20
+        draw_radius = 10
         @canvas.drawCircle(position, draw_radius)
