@@ -1,6 +1,9 @@
 {Canvas} = require 'canvas'
 
 exports.Game = class Game
+    PLAYER = 1
+    GROUND = 2
+
     constructor: (opts) ->
         @canvas = new Canvas(opts.canvas)
 
@@ -16,6 +19,8 @@ exports.Game = class Game
         ground_shape = new Box2D.b2EdgeShape
         ground_shape.Set(new Box2D.b2Vec2(0, 20), new Box2D.b2Vec2(64, 48))
         ground.CreateFixture(ground_shape, 0.0)
+
+        ground.SetUserData(GROUND)
 
         # create the player (for now, just a box)
         player_shape = new Box2D.b2PolygonShape
@@ -36,18 +41,14 @@ exports.Game = class Game
         player.SetActive(1)
 
         # identifies this object as the player
-        player.SetUserData(1)
+        player.SetUserData(PLAYER)
 
         @steps = 0
-        @step = =>
+        @start = =>
             @steps += 1
-            @update()
+            window.requestAnimationFrame(@start)
             @draw()
 
-        @start = =>
-            setInterval(@step, @stepTime)
-
-    stepTime: 1 / 60
     positionIterations: 2
     velocityIterations: 3
 
@@ -63,11 +64,12 @@ exports.Game = class Game
     draw: ->
         @canvas.clear()
         b = @world.GetBodyList()
-        while b.GetUserData() < 1 
-            b = b.GetNext()
-
-        position = 
-            x: b.GetPosition().get_x() * @pixelsPerMetre
-            y: b.GetPosition().get_y() * @pixelsPerMetre
-        draw_radius = 10
-        @canvas.drawCircle(position, draw_radius)
+        while (data = b.GetUserData())
+            if data == PLAYER
+                position = 
+                    x: b.GetPosition().get_x() * @pixelsPerMetre
+                    y: b.GetPosition().get_y() * @pixelsPerMetre
+                draw_radius = 10
+                @canvas.drawCircle(position, draw_radius)
+            else if data == GROUND
+                @canvas.drawLine({x: 0, y: 200}, {x:640, y:480})
