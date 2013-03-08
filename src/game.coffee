@@ -23,8 +23,8 @@ exports.Game = class Game
         ground.SetUserData(GROUND)
 
         # create the player (for now, just a box)
-        player_shape = new Box2D.b2PolygonShape
-        player_shape.SetAsBox(1, 1)
+        player_shape = new Box2D.b2CircleShape
+        player_shape.set_m_radius(1)
 
         ZERO = new Box2D.b2Vec2(0, 0)
 
@@ -35,7 +35,7 @@ exports.Game = class Game
         # add the player to the world
         player = @world.CreateBody(bd_player)
         player.CreateFixture(player_shape, 5)
-        player.SetTransform(new Box2D.b2Vec2(2, 2), 0)
+        player.SetTransform(new Box2D.b2Vec2(6, 2), 0)
         player.SetLinearVelocity(ZERO)
         player.SetAwake(1)
         player.SetActive(1)
@@ -74,8 +74,8 @@ exports.Game = class Game
                 position =
                     x: b.GetPosition().get_x() * @pixelsPerMetre
                     y: b.GetPosition().get_y() * @pixelsPerMetre
-                draw_radius = 10
+                draw_radius = @pixelsPerMetre
                 @canvas.drawCircle(position, draw_radius)
             else if data == GROUND
-                @canvas.drawLine({x: 0, y: 200}, {x:640, y:480})
+                @canvas.drawLine({x: 0, y: 96}, {x:640, y:480})
             b = b.GetNext()
