@@ -2,7 +2,7 @@
 
 exports.Game = class Game
     PLAYER = 1
-    PLAYER_RADIUS = 0.25
+    PLAYER_RADIUS = 0.5
     GROUND = 2
 
     # Box2D works best when moving objects are between 0.1 and 10m large, so we
