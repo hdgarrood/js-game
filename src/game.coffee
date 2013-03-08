@@ -45,7 +45,7 @@ exports.Game = class Game
 
         @steps = 0
         @start = =>
-            setInterval(@step, 16)
+            setInterval(@step, 1000 * @stepTime)
             # window.requestAnimationFrame(@start)
 
         @step = =>
@@ -53,6 +53,7 @@ exports.Game = class Game
             @update()
             @draw()
 
+    stepTime: 1 / 60
     positionIterations: 2
     velocityIterations: 3
 
