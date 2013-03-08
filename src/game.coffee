@@ -70,7 +70,7 @@ exports.Game = class Game
         b = @world.GetBodyList()
         while data = b.GetUserData()
             if data == PLAYER
-                position = 
+                position =
                     x: b.GetPosition().get_x() * @pixelsPerMetre
                     y: b.GetPosition().get_y() * @pixelsPerMetre
                 draw_radius = 10
