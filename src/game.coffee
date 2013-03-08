@@ -17,7 +17,7 @@ exports.Game = class Game
         ground = @world.CreateBody(bd_ground)
 
         ground_shape = new Box2D.b2EdgeShape
-        ground_shape.Set(new Box2D.b2Vec2(0, 20), new Box2D.b2Vec2(64, 48))
+        ground_shape.Set(new Box2D.b2Vec2(0, 3), new Box2D.b2Vec2(20, 15))
         ground.CreateFixture(ground_shape, 0.0)
 
         ground.SetUserData(GROUND)
@@ -35,7 +35,7 @@ exports.Game = class Game
         # add the player to the world
         player = @world.CreateBody(bd_player)
         player.CreateFixture(player_shape, 5)
-        player.SetTransform(new Box2D.b2Vec2(25, 4), 0)
+        player.SetTransform(new Box2D.b2Vec2(2, 2), 0)
         player.SetLinearVelocity(ZERO)
         player.SetAwake(1)
         player.SetActive(1)
@@ -45,8 +45,8 @@ exports.Game = class Game
 
         @steps = 0
         @start = =>
-            setInterval(@step, 1000 * @stepTime)
-            # window.requestAnimationFrame(@start)
+            window.requestAnimationFrame(@start)
+            @step()
 
         @step = =>
             @steps += 1
@@ -59,8 +59,8 @@ exports.Game = class Game
 
     # Box2D works best when moving objects are between 0.1 and 10m large, so we
     # need to scale before rendering
-    # this scale means the viewport is 64m wide and 48m high
-    pixelsPerMetre: 10
+    # this scale means the viewport is 20m wide and 15m high
+    pixelsPerMetre: 32
 
     update: ->
         @world.Step(@stepTime, @velocityIterations, @positionIterations)
