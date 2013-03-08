@@ -4,7 +4,11 @@ fs      = require "fs-extra"
 
 app = stitch.createPackage(
     paths: [ "src" ]
-    dependencies: [ 'lib/box2d.js', 'lib/requestAnimationFrame-polyfill.js' ]
+    dependencies: [
+        'lib/box2d.js',
+        'lib/requestAnimationFrame-polyfill.js',
+        'lib/debugging.js'
+    ]
 )
 
 option '-p', '--port [PORT]', 'port to serve HTTP on'

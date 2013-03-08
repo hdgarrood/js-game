@@ -45,8 +45,12 @@ exports.Game = class Game
 
         @steps = 0
         @start = =>
+            setInterval(@step, 16)
+            # window.requestAnimationFrame(@start)
+
+        @step = =>
             @steps += 1
-            window.requestAnimationFrame(@start)
+            @update()
             @draw()
 
     positionIterations: 2
@@ -64,7 +68,7 @@ exports.Game = class Game
     draw: ->
         @canvas.clear()
         b = @world.GetBodyList()
-        while (data = b.GetUserData())
+        while data = b.GetUserData()
             if data == PLAYER
                 position = 
                     x: b.GetPosition().get_x() * @pixelsPerMetre
@@ -73,3 +77,4 @@ exports.Game = class Game
                 @canvas.drawCircle(position, draw_radius)
             else if data == GROUND
                 @canvas.drawLine({x: 0, y: 200}, {x:640, y:480})
+            b = b.GetNext()
