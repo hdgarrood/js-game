@@ -12,11 +12,12 @@ exports.Canvas = class Canvas
         con.fillStyle = fillStyle
         con.fill()
 
-    drawLine: (point1, point2) ->
+    drawLine: (point1, point2, strokeStyle = 'black') ->
         con = @_context()
         con.beginPath()
         con.moveTo(point1.x, point1.y)
         con.lineTo(point2.x, point2.y)
+        con.strokeStyle = strokeStyle
         con.stroke()
 
     clear: (preserveTransform = false) ->
