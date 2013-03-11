@@ -1,5 +1,14 @@
 exports.Canvas = class Canvas
-    constructor: (@canvas) ->
+    constructor: ->
+        canvas = document.createElement('canvas')
+        canvas.width = 640
+        canvas.height = 480
+        canvas.setAttribute('style', 'border:dotted;')
+
+        body = document.getElementsByTagName('body')[0]
+        body.appendChild(canvas)
+
+        @canvas = canvas
 
     width: -> @canvas.width
     height: -> @canvas.height

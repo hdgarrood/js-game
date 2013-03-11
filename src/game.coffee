@@ -5,8 +5,6 @@ exports.Game = class Game
     PLAYER_RADIUS = 0.5
     GROUND = 2
 
-    # Box2D works best when moving objects are between 0.1 and 10m large, so we
-    # need to scale before rendering
     PIXELS_PER_METRE = 32
 
     WORLD_HEIGHT_PX = 480
@@ -21,8 +19,8 @@ exports.Game = class Game
     # acceleration due to gravity, ms^-2
     G = 9.81
 
-    constructor: (opts) ->
-        @canvas = new Canvas(opts.canvas)
+    constructor: ->
+        @canvas = new Canvas()
 
         # create world
         gravity = new Box2D.b2Vec2(0, G)
